@@ -1,6 +1,3 @@
-import Cell from './Cell.js';
-import Food from './Food.js';
-
 const socket = io();
 
 let cells = {};
@@ -8,8 +5,7 @@ let foodItems = {};
 
 // Handle new cell
 socket.on('addCell', (cellData) => {
-    const cell = new Cell(cellData.id, cellData.x, cellData.y, cellData.radius, cellData.color);
-    cells[cellData.id] = cell;
+    cells[cellData.id] = cellData;
 });
 
 // Handle updated cell
@@ -25,10 +21,13 @@ socket.on('removeCell', (cellId) => {
     delete cells[cellId];
 });
 
+socket.on('removeFood', (foodId) => {
+    delete foodItems[foodId];
+});
+
 // Handle new food
 socket.on('addFood', (foodData) => {
-    const food = new Food(foodData.id, foodData.x, foodData.y, foodData.radius, foodData.color);
-    foodItems[foodData.id] = food;
+    foodItems[foodData.id] = foodData;
 });
 
 function setup() {
@@ -58,3 +57,5 @@ function draw() {
 function mouseMoved() {
     socket.emit('moveCell', { id: socket.id, x: mouseX, y: mouseY });
 }
+
+

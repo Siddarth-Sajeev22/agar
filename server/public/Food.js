@@ -1,4 +1,4 @@
-class Cell {
+class Food {
     constructor(id, x, y, radius, color) {
         this.id = id; 
         this.x = x; 
@@ -9,4 +9,4 @@ class Cell {
     }
 }
 
-export default Cell ;
+module.exports = Food;
